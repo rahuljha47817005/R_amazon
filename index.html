@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul_Amazon.com - Online Shopping</title>
+    <style>
+        :root {
+            --amazon-orange: #ff9900;
+            --amazon-dark: #131921;
+            --amazon-light: #232f3e;
+            --amazon-gray: #eaeded;
+            --amazon-white: #ffffff;
+            --amazon-text: #0f1111;
+            --amazon-yellow: #febd69;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--amazon-gray);
+            color: var(--amazon-text);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .navbar {
+            background-color: var(--amazon-dark);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar-logo {
+            color: var(--amazon-orange);
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        
+        .navbar-search {
+            display: flex;
+            flex: 1;
+            margin: 0 10px;
+        }
+        
+        .search-select {
+            background-color: #f3f3f3;
+            width: 50px;
+            text-align: center;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            border: none;
+        }
+        
+        .search-input {
+            height: 40px;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        .search-icon {
+            background-color: var(--amazon-yellow);
+            width: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            color: var(--amazon-dark);
+            cursor: pointer;
+        }
+        
+        .navbar-nav {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        
+        .nav-item {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        
+        .nav-item-line1 {
+            font-size: 12px;
+        }
+        
+        .nav-item-line2 {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .nav-cart {
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            margin-left: 5px;
+            font-weight: bold;
+            color: var(--amazon-orange);
+        }
+        
+        /* Subheader */
+        .subheader {
+            background-color: var(--amazon-light);
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .subheader-location {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .subheader-menu {
+            display: flex;
+            flex: 1;
+        }
+        
+        .subheader-menu span {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .subheader-deals {
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Hero Banner */
+        .hero {
+            height: 300px;
+            background-image: url('https://m.media-amazon.com/images/I/61DUO0NqyyL._SX3000_.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 20px;
+        }
+        
+        /* Product Grid */
+        .product-section {
+            padding: 20px;
+            background-color: var(--amazon-gray);
+        }
+        
+        .product-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .product-card {
+            background-color: white;
+            width: 23%;
+            min-width: 250px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            height: 200px;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-rating {
+            color: var(--amazon-orange);
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .product-prime {
+            color: #067D62;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .add-to-cart {
+            background-color: var(--amazon-yellow);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #f3a847;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--amazon-light);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .footer-link {
+            margin: 0 15px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .footer-logo {
+            color: var(--amazon-orange);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .footer-copyright {
+            font-size: 12px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .product-card {
+                width: 31%;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .product-card {
+                width: 48%;
+            }
+            
+            .subheader-menu {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .product-card {
+                width: 100%;
+            }
+            
+            .navbar-search {
+                display: none;
+            }
+            
+            .hero {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="navbar-logo">Rahul_Amazon.com</a>
+            
+            <div class="navbar-search">
+                <select class="search-select">
+                    <option>All</option>
+                    <option>Electronics</option>
+                    <option>Books</option>
+                    <option>Home</option>
+                    <option>Fashion</option>
+                </select>
+                <input type="text" class="search-input">
+                <div class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="navbar-nav">
+                <div class="nav-item">
+                    <span class="nav-item-line1">Hello, Rahul</span>
+                    <span class="nav-item-line2">Account & Lists</span>
+                </div>
+                
+                <div class="nav-item">
+                    <span class="nav-item-line1">Returns</span>
+                    <span class="nav-item-line2">& Orders</span>
+                </div>
+                
+                <div class="nav-cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="subheader">
+            <div class="subheader-location">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16" style="margin-right: 5px;">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>
+                <span>Deliver to Rahul - Delhi 110001</span>
+            </div>
+            
+            <div class="subheader-menu">
+                <span>Today's Deals</span>
+                <span>Customer Service</span>
+                <span>Registry</span>
+                <span>Gift Cards</span>
+                <span>Sell</span>
+            </div>
+            
+            <div class="subheader-deals">Shop deals in Electronics</div>
+        </div>
+    </header>
+    
+    <!-- Hero Banner -->
+    <div class="hero"></div>
+    
+    <!-- Product Sections -->
+    <div class="product-section">
+        <h2 class="section-title">Deals on Electronics</h2>
+        <div class="product-row">
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71an9eiBxpL._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">OnePlus Nord CE 2 Lite 5G (Blue Tide, 6GB RAM, 128GB Storage)</h3>
+                <div class="product-rating">★★★★☆ (1,234)</div>
+                <div class="product-price">₹18,999</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61BvxKSpy3L._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">Samsung Galaxy M33 5G (Emerald Brown, 6GB, 128GB Storage) | 6000mAh Battery</h3>
+                <div class="product-rating">★★★★☆ (2,345)</div>
+                <div class="product-price">₹17,999</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71geVdy6-OS._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">HP 15s, 11th Gen Intel Core i3-1115G4, 15.6-inch (39.6 cm) FHD Laptop (8GB RAM/512GB SSD)</h3>
+                <div class="product-rating">★★★★☆ (3,456)</div>
+                <div class="product-price">₹39,990</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61L1ItFgFHL._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">Sony WH-CH510 On-Ear Wireless Headphones with Mic (Black)</h3>
+                <div class="product-rating">★★★★☆ (4,567)</div>
+                <div class="product-price">₹3,990</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-section">
+        <h2 class="section-title">Best Sellers in Books</h2>
+        <div class="product-row">
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">Rich Dad Poor Dad: What the Rich Teach Their Kids About Money</h3>
+                <div class="product-rating">★★★★★ (45,678)</div>
+                <div class="product-price">₹295</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">The Alchemist</h3>
+                <div class="product-rating">★★★★★ (34,567)</div>
+                <div class="product-price">₹239</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">Atomic Habits: The life-changing million copy bestseller</h3>
+                <div class="product-rating">★★★★★ (56,789)</div>
+                <div class="product-price">₹499</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71g2ednj0JL._AC_UY218_.jpg" class="product-image">
+                <h3 class="product-title">The Psychology of Money</h3>
+                <div class="product-rating">★★★★★ (23,456)</div>
+                <div class="product-price">₹278</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="product-section">
+        <h2 class="section-title">Fashion Trends</h2>
+        <div class="product-row">
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61-8rBAD68L._AC_UL320_.jpg" class="product-image">
+                <h3 class="product-title">Men's Regular Fit T-Shirt (Pack of 3)</h3>
+                <div class="product-rating">★★★★☆ (12,345)</div>
+                <div class="product-price">₹599</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71k9WmDPfVL._AC_UL320_.jpg" class="product-image">
+                <h3 class="product-title">Women's Cotton Kurti with Palazzos (Pack of 1)</h3>
+                <div class="product-rating">★★★★☆ (9,876)</div>
+                <div class="product-price">₹799</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61S2KdoGNnL._AC_UL320_.jpg" class="product-image">
+                <h3 class="product-title">Sports Shoes for Men (Black)</h3>
+                <div class="product-rating">★★★★★ (8,765)</div>
+                <div class="product-price">₹1,299</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61S2KdoGNnL._AC_UL320_.jpg" class="product-image">
+                <h3 class="product-title">Analog Watch for Men (Silver)</h3>
+                <div class="product-rating">★★★★☆ (7,654)</div>
+                <div class="product-price">₹1,599</div>
+                <div class="product-prime">FREE delivery by Rahul_Amazon</div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Rahul_Amazon.com</div>
+        <div class="footer-links">
+            <div class="footer-link">About Us</div>
+            <div class="footer-link">Careers</div>
+            <div class="footer-link">Press Releases</div>
+            <div class="footer-link">Amazon Cares</div>
+            <div class="footer-link">Gift a Smile</div>
+            <div class="footer-link">Terms & Conditions</div>
+            <div class="footer-link">Privacy Policy</div>
+            <div class="footer-link">Contact Us</div>
+        </div>
+        <div class="footer-copyright">
+            © 2023 Rahul_Amazon.com, Inc. or its affiliates
+        </div>
+    </footer>
+    
+    <script>
+        // Cart functionality
+        let cartCount = 0;
+        const cartCountElement = document.querySelector('.cart-count');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                cartCount++;
+                cartCountElement.textContent = cartCount;
+                
+                // Animation effect
+                button.textContent = 'Added to Cart';
+                button.style.backgroundColor = '#4CAF50';
+                button.style.color = 'white';
+                
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.style.backgroundColor = 'var(--amazon-yellow)';
+                    button.style.color = 'black';
+                }, 1000);
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchIcon = document.querySelector('.search-icon');
+        
+        searchIcon.addEventListener('click', function() {
+            if (searchInput.value.trim() !== '') {
+                alert(`Searching for: ${searchInput.value}`);
+                // In a real app, this would redirect to search results
+            }
+        });
+        
+        // Allow Enter key for search
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+                alert(`Searching for: ${searchInput.value}`);
+            }
+        });
+    </script>
+</body>
+</html>
